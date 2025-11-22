@@ -65,25 +65,49 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "gentle-float": {
+          "0%, 100%": { transform: "translateY(0px) translateX(0px)" },
+          "50%": { transform: "translateY(-10px) translateX(5px)" },
+        },
+        "breathing-glow": {
+          "0%, 100%": { 
+            boxShadow: "0 8px 32px hsl(var(--glow) / 0.15), 0 2px 8px hsl(var(--glow) / 0.1)",
           },
-          to: {
-            height: "0",
+          "50%": { 
+            boxShadow: "0 12px 48px hsl(var(--glow) / 0.25), 0 4px 12px hsl(var(--glow) / 0.2)",
           },
+        },
+        "soft-rise": {
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in-cinematic": {
+          from: { opacity: "0", transform: "scale(0.98)", filter: "blur(8px)" },
+          to: { opacity: "1", transform: "scale(1)", filter: "blur(0)" },
+        },
+        "cat-tilt": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        "constellation-pulse": {
+          "0%, 100%": { opacity: "0.05" },
+          "50%": { opacity: "0.12" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "gentle-float 6s ease-in-out infinite",
+        "glow": "breathing-glow 4s ease-in-out infinite",
+        "rise": "soft-rise 0.6s ease-out",
+        "cinematic": "fade-in-cinematic 0.8s ease-out",
       },
     },
   },

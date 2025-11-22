@@ -1,12 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { ColorSelection } from "@/components/ColorSelection";
+import { WelcomeScreen } from "@/components/WelcomeScreen";
+import { GreetingPanel } from "@/components/GreetingPanel";
+
+type Phase = 'selection' | 'welcome' | 'greeting';
+type Palette = 'rose' | 'lavender' | 'ivory';
 
 const Index = () => {
+  const [phase, setPhase] = useState<Phase>('selection');
+  const [selectedPalette, setSelectedPalette] = useState<Palette>('rose');
+
+  const handlePaletteSelect = (palette: Palette) => {
+    setSelectedPalette(palette);
+    // Apply theme class to document
+    document.documentElement.className = `theme-${palette}`;
+    // Transition to welcome screen
+    setTimeout(() => setPhase('welcome'), 400);
+  };
+
+  const handleEnter = () => {
+    setTimeout(() => setPhase('greeting'), 600);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className={`theme-${selectedPalette} transition-colors duration-700`}>
+      {phase === 'selection' && (
+        <ColorSelection onPaletteSelect={handlePaletteSelect} />
+      )}
+      
+      {phase === 'welcome' && (
+        <WelcomeScreen onEnter={handleEnter} />
+      )}
+      
+      {phase === 'greeting' && (
+        <GreetingPanel />
+      )}
     </div>
   );
 };
